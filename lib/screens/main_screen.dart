@@ -15,6 +15,13 @@ static const String routeName = '/main';
       ),
       drawer: SidePanel('main'),
       body: Container( 
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            colorFilter: new ColorFilter.mode(Colors.grey.withOpacity(0.5), BlendMode.dstATop),
+            image: AssetImage("images/beer-gut.jpg"),
+            fit: BoxFit.cover
+          )
+        ),
         child: Column(  
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[

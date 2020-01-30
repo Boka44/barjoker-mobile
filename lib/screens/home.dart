@@ -34,10 +34,16 @@ class HomeScreen extends StatelessWidget {
         // title: Text('Barjoker'),
       ),
       body: Container(
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("images/beer-gut.jpg"),
+            fit: BoxFit.cover
+          )
+        ),
         width: deviceSize.width,
         child: Column( 
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center, 
           children: <Widget>[
             Container(
               margin: EdgeInsets.only(

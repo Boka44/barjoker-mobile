@@ -22,7 +22,8 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: "Barjoker",
         theme: ThemeData(
-          primarySwatch: Colors.deepOrange
+          primaryColor: Colors.black
+          // primarySwatch: Colors.grey
         ),
         home: HomeScreen(),
         routes: {

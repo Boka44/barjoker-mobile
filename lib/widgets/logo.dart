@@ -13,15 +13,11 @@ class BarjokerLogo extends StatelessWidget {
     return Container(
       width: deviceSize.width,
       height: height,
-      // color: Colors.red,
+      padding: EdgeInsets.all(20),
       child: Center(
-        child: Text(
-          'Barjoker',
-          style: TextStyle(  
-            fontSize: size,
-            fontWeight: FontWeight.bold
-          )
-        ),
+        child: Image( 
+          image: AssetImage('images/barjoker_logo.png')
+        )
       ),
     );
   }
