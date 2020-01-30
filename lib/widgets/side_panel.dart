@@ -32,7 +32,7 @@ class SidePanel extends StatelessWidget {
               leading: Icon(Icons.shop),
               title: Text('Custom Game'),
               onTap: () {
-                Navigator.of(context).pushReplacementNamed(QuickGameScreen.routeName);
+                Navigator.of(context).pushNamed(QuickGameScreen.routeName);
               },
             ),
           if(current != 'custom')
@@ -42,7 +42,7 @@ class SidePanel extends StatelessWidget {
               leading: Icon(Icons.shop),
               title: Text('Quick Game'),
               onTap: () {
-                Navigator.of(context).pushReplacementNamed(QuickGameScreen.routeName);
+                Navigator.of(context).pushNamed(QuickGameScreen.routeName);
               },
             ),
           if(current != 'quick')

@@ -1,14 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/side_panel.dart';
 import '../widgets/logo.dart';
 
-class MainScreen extends StatelessWidget {
-static const String routeName = '/main';
+import '../providers/dares.dart';
 
+class MainScreen extends StatefulWidget {
+  static const String routeName = '/main';
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  bool quickAdd = true;
   @override
   Widget build(BuildContext context) {  
+  String dareOfTheDay = 'A Test message about something funny you may or may not (but should) do.';
+  String dareType = 'dare';
+  String quickButtonText = 'Quick Add';
+  
+
+  _handleClick (dares) {
+    dares.saveDare(dareOfTheDay, dareType);
+    quickButtonText = 'Added!';
+    print('Added');
+    setState(() {
+      quickAdd = false;
+    });
+    print(quickAdd);
+  }
+  
   final deviceSize = MediaQuery.of(context).size;
+  final dares = Provider.of<Dares>(context);
     return Scaffold(
       appBar: AppBar(  
         
@@ -38,11 +62,12 @@ static const String routeName = '/main';
               decoration: BoxDecoration(  
                 border: Border.all(
                   width: 1
-                )
+                ),
+                color: Colors.white
               ),
               child: Center(
                 child: Text(
-                  'A Test message about something funny you may or may not (but should) do.',
+                  dareOfTheDay,
                   style: TextStyle(  
                     fontSize: 17
                   ),
@@ -52,10 +77,8 @@ static const String routeName = '/main';
             ),
             SizedBox(height: 5,),
             RaisedButton( 
-              child: Text('Quick Add'),
-              onPressed: () {
-
-              },
+              child: Text(quickButtonText),
+              onPressed: quickAdd ? () {_handleClick(dares);} : null
             ),
             Container( 
               height: deviceSize.height * .3,

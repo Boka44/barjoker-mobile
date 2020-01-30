@@ -81,6 +81,22 @@ class _CustomListScreenState extends State<CustomListScreen> {
                     )
                   );
                 }
+                if(_addValue.text.length > 150) {
+                  return showDialog(
+                    context: context,
+                    builder: (ctx) => AlertDialog( 
+                      content: Text('${capType} must be less than 150 characters'),
+                      actions: <Widget>[
+                        FlatButton(
+                          child: Text('Dismiss'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        )
+                      ],
+                    )
+                  );
+                }
                 dares.saveDare(_addValue.text, widget.type);
               },
             ),

@@ -49,12 +49,7 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
                 child: _newGame 
                 ? newDareButton(dares) 
                 // : DareDisplay(dare, 'dare'),
-                : Text(
-                  dare,
-                  style: TextStyle(  
-                    fontSize: 20
-                  ),
-                ),
+                : dareView(dare, deviceSize)
               ),
             ),
             if(!_newGame) 
@@ -72,6 +67,50 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
               rules(deviceSize)
           ],
         ),
+      ),
+    );
+  }
+
+  Widget dareView(String dare, deviceSize) {
+    print('TV');
+    return Container( 
+      width: deviceSize.width * .89,
+      height: deviceSize.height * .6,
+      // decoration: BoxDecoration(  
+      //   image: DecorationImage(  
+      //     image: AssetImage('images/tv_pitcher.png'),
+          
+      //     fit: BoxFit.contain
+      //   )
+      // ),
+      // child: Text(
+      //   dare,
+      //   style: TextStyle(  
+      //     fontSize: 20
+      //   ),
+      //   )
+      child: Stack(  
+        fit: StackFit.expand,
+        children: <Widget>[
+          Image(  
+            image: AssetImage('images/tv_pitcher.png'),
+            fit: BoxFit.cover
+          ),
+          Align( 
+            
+            alignment: Alignment(0.0, -0.3),
+            child: Container( 
+              width: deviceSize.width * .65,
+              child: Text(
+                  dare,
+                  style: TextStyle(  
+                    fontSize: 20
+                  ),
+                )
+            
+            )
+          )
+        ],
       ),
     );
   }
