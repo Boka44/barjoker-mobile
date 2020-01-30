@@ -17,12 +17,29 @@ class HomeScreen extends StatelessWidget {
                     Navigator.pushNamed(context, QuickGameScreen.routeName);
                   },
                 ),
-                FlatButton( 
-                  child: Text('Sign up/ Log in'),
-                  onPressed: () {
-                    Navigator.pushReplacementNamed(context, MainScreen.routeName);
-                  },
+                Row( 
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    FlatButton( 
+                      child: Text('Sign up'),
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, MainScreen.routeName);
+                      },
+                    ),
+                    VerticalDivider(
+                      color: Colors.black,
+                      thickness: 2.0,
+                      width: 1.0,
+                    ),
+                    FlatButton( 
+                      child: Text('Sign up'),
+                      onPressed: () {
+                        Navigator.pushReplacementNamed(context, MainScreen.routeName);
+                      },
+                    ),
+                  ],
                 )
+                
               ],
             );
   }

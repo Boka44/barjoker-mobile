@@ -26,7 +26,7 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
     final dares = Provider.of<Dares>(context);
     return Scaffold(
       appBar: AppBar(  
-        title: Text('Barjoker'),
+        // title: Text('Barjoker'),
       ),
       body: Container( 
         width: deviceSize.width,
