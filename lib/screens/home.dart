@@ -14,7 +14,7 @@ class HomeScreen extends StatelessWidget {
                 RaisedButton( 
                   child: Text('Play Quick Game'),
                   onPressed: () {
-                    Navigator.pushReplacementNamed(context, QuickGameScreen.routeName);
+                    Navigator.pushNamed(context, QuickGameScreen.routeName);
                   },
                 ),
                 FlatButton( 
