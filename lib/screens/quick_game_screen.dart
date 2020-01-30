@@ -7,6 +7,12 @@ import '../widgets/logo.dart';
 
 class QuickGameScreen extends StatefulWidget {
   static const String routeName = '/quickgame';
+  static const String routeNameCustom = '/customgame';
+
+  final String gameType;
+
+  QuickGameScreen(this.gameType);
+
   @override
   _QuickGameScreenState createState() => _QuickGameScreenState();
 }
@@ -19,14 +25,30 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
   bool _newGame = true;
   bool _isSuccess = false;
   bool _isPunishment = false;
-
+  bool defaultGame;
+  Map<String, bool> settings = {
+        'dare': false,
+        'success': false,
+        'punishment': false
+      };
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
     final dares = Provider.of<Dares>(context);
+    widget.gameType == 'custom' ? defaultGame = false : defaultGame = true;
+    final sidePanelType = defaultGame ? 'quick' : 'custom';
     return Scaffold(
       appBar: AppBar(  
         // title: Text('Barjoker'),
+         actions: <Widget>[
+          if(!defaultGame)
+          IconButton(
+            icon: Icon(Icons.settings),
+            onPressed: () {
+              settingsModal(deviceSize);
+            },
+          )
+        ],
       ),
       body: Container( 
         width: deviceSize.width,
@@ -104,23 +126,30 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
         ),
       ),
       onPressed: () {
+        // print(type);
         
           if(type == 'dare') {
             setState(() {
-              dare = dares.randomDare(type);  
+              dare = dares.randomDare(type, defaultGame, settings[type]); 
             });
+            // Navigator.pop(context);
           }
           if(type == 'success') {
             setStateModal(() {
-              success = dares.randomDare(type);
+              success = dares.randomDare(type, defaultGame, settings[type]);
             });
             
+            // Navigator.pop(context);
           }
           if(type == 'punishment') {
             setStateModal(() {
-              punishment = dares.randomDare(type);
+              punishment = dares.randomDare(type, defaultGame, settings[type]);
             });
+            // Navigator.pop(context);
           }
+        // if(type != 'dare') {
+        //   displayModal(context, dares, type);
+        // }
       },
     );
   }
@@ -141,7 +170,7 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
         ),
         onPressed: () {
           setState(() {
-            dare = dares.randomDare('dare');
+            dare = dares.randomDare('dare', defaultGame, settings['dare']);
             print(dare);
             _newGame = false; 
           });
@@ -169,7 +198,7 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
             color: Colors.green,
             onPressed: () {
               setState(() {
-                success = dares.randomDare('success');
+                success = dares.randomDare('success', defaultGame, settings['success']);
                 _isSuccess = true;
                 _isPunishment = false;
               });
@@ -193,7 +222,7 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
             color: Colors.red,
             onPressed: () {
               setState(() {
-                punishment = dares.randomDare('punishment');
+                punishment = dares.randomDare('punishment', defaultGame, settings['punishment']);
                 _isPunishment = true;
                 _isSuccess = false;
               });
@@ -232,7 +261,7 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
                       onPressed: () {
                         setState(() {
                           Navigator.pop(context);
-                          dare = dares.randomDare('dare');
+                          dare = dares.randomDare('dare', defaultGame, settings['dare']);
                         });
                       },
                     ),
@@ -288,6 +317,8 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
           SizedBox(height: 5,),
           rulesText('Feel free to ad-lib your own rule/dare at any time.'),
           SizedBox(height: 5,),
+          // rulesText('Rules are for losers'),
+          // SizedBox(height: 5,),
         ],
       ),
     );
@@ -301,6 +332,63 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
       ),
     );
   }
+
+  void settingsModal(deviceSize) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('Settings'),
+        content: StatefulBuilder(
+            builder: (BuildContext context, StateSetter setStateModal) {
+              return Container(
+                height: deviceSize.height * .3,
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      'Default',
+                      style: TextStyle( 
+                        fontWeight: FontWeight.bold
+                      ),
+                    ),
+                    ListTile( 
+                      title: Text('Dares'),
+                      trailing: Checkbox(
+                        value: settings['dare'],
+                        onChanged: (newValue) {
+                          setStateModal(() {
+                            settings['dare'] = newValue;
+                          });
+                        },
+                      )
+                    ),
+                     ListTile( 
+                      title: Text('Successes'),
+                      trailing: Checkbox(
+                        value: settings['success'],
+                        onChanged: (newValue) {
+                          setStateModal(() {
+                            settings['success'] = newValue;
+                          });
+                        },
+                      )
+                    ),
+                     ListTile( 
+                      title: Text('Punishments'),
+                      trailing: Checkbox(
+                        value: settings['punishment'],
+                        onChanged: (newValue) {
+                          setStateModal(() {
+                            settings['punishment'] = newValue;
+                          });
+                        },
+                      )
+                    )
+                  ],
+                ),
+              );
+            }
+        )
+      )
+    );
+  }
 }
-
-

@@ -71,6 +71,34 @@ class Dares with ChangeNotifier {
       userId: '1',
       isDefault: true,
       type: 'punishment'
+    ),
+    Dare(
+      id: '10',
+      message: 'THIS IS NOT DEFAULT BUT CUSTOM.',
+      userId: '1',
+      isDefault: false,
+      type: 'dare'
+    ),
+    Dare(
+      id: '11',
+      message: 'Insert custom dare here.',
+      userId: '1',
+      isDefault: false,
+      type: 'dare'
+    ),
+    Dare(
+      id: '12',
+      message: 'Insert custom success here.',
+      userId: '1',
+      isDefault: false,
+      type: 'success'
+    ),
+    Dare(
+      id: '13',
+      message: 'Insert custom punishment here.',
+      userId: '1',
+      isDefault: false,
+      type: 'punishment'
     )
   ];
 
@@ -88,8 +116,20 @@ class Dares with ChangeNotifier {
     return _dares.where((dare) => dare.type == 'punishment' && userId == dare.userId).toList();
   }
 
-  String randomDare(String type) {
-    List<Dare> _parsedList = _dares.where((dare) => dare.type == type && userId == dare.userId).toList();
+  String randomDare(String type, bool isDefault, bool getDefault) {
+    print(type + ' ' + getDefault.toString());
+    List<Dare> _parsedList;
+    if(isDefault) {
+      _parsedList = _dares.where((dare) => dare.type == type && dare.isDefault).toList();
+      print(_parsedList.length);
+    } else if (getDefault) {
+      _parsedList = _dares.where((dare) => (dare.type == type && userId == dare.userId) || (dare.type == type && dare.isDefault)).toList();
+      print(_parsedList.length);
+    } else {
+      _parsedList = _dares.where((dare) => dare.type == type && userId == dare.userId && !dare.isDefault).toList();
+      print(_parsedList.length);
+    }
+    
     // print(_parsedList);
     final _random = new Random();
     var element = _parsedList[_random.nextInt(_parsedList.length)];

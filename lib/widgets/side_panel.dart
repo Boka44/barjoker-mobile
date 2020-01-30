@@ -32,7 +32,7 @@ class SidePanel extends StatelessWidget {
               leading: Icon(Icons.gamepad),
               title: Text('Custom Game'),
               onTap: () {
-                Navigator.of(context).pushNamed(QuickGameScreen.routeName);
+                Navigator.of(context).pushNamed(QuickGameScreen.routeNameCustom);
               },
             ),
           if(current != 'custom')

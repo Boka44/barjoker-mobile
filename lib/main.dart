@@ -27,7 +27,8 @@ class MyApp extends StatelessWidget {
         ),
         home: HomeScreen(),
         routes: {
-          QuickGameScreen.routeName: (ctx) => QuickGameScreen(),
+          QuickGameScreen.routeName: (ctx) => QuickGameScreen('quick'),
+          QuickGameScreen.routeNameCustom: (ctx) => QuickGameScreen('custom'),
           MainScreen.routeName: (ctx) => MainScreen(),
           CustomizeScreen.routeName: (ctx) => CustomizeScreen()
         },
