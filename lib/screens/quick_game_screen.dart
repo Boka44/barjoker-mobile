@@ -3,7 +3,6 @@ import 'package:provider/provider.dart';
 
 import '../providers/dares.dart';
 
-// import '../widgets/dare_display.dart';
 import '../widgets/logo.dart';
 
 class QuickGameScreen extends StatefulWidget {
@@ -13,7 +12,6 @@ class QuickGameScreen extends StatefulWidget {
 }
 
 class _QuickGameScreenState extends State<QuickGameScreen> {
-  // static const String routeName = '/quickgame';
   String dare = '';
   String success = '';
   String punishment = '';
@@ -33,7 +31,6 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
       body: Container( 
         width: deviceSize.width,
         child: Column(  
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             SizedBox(height: 25),
@@ -42,13 +39,11 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
               size: 35,
             ),
             Container(
-              // padding: EdgeInsets.only(top: 50),
               margin: EdgeInsets.all(20.0),
               height: deviceSize.height * .30,
               child: Center(
                 child: _newGame 
                 ? newDareButton(dares) 
-                // : DareDisplay(dare, 'dare'),
                 : dareView(dare, deviceSize)
               ),
             ),
@@ -58,8 +53,6 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget> [
                   resultOptions(dares, deviceSize),
-                  // _isSuccess ? DareDisplay(success, 'success') : DareDisplay(punishment, 'punishment')
-                  // _isSuccess ? GameModal(success) : GameModal(punishment)
                   SizedBox(height: 15,),
                   vetoButton(dares, 'dare', null)
                 ]
@@ -76,19 +69,6 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
     return Container( 
       width: deviceSize.width * .89,
       height: deviceSize.height * .6,
-      // decoration: BoxDecoration(  
-      //   image: DecorationImage(  
-      //     image: AssetImage('images/tv_pitcher.png'),
-          
-      //     fit: BoxFit.contain
-      //   )
-      // ),
-      // child: Text(
-      //   dare,
-      //   style: TextStyle(  
-      //     fontSize: 20
-      //   ),
-      //   )
       child: Stack(  
         fit: StackFit.expand,
         children: <Widget>[
@@ -124,30 +104,23 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
         ),
       ),
       onPressed: () {
-        // print(type);
         
           if(type == 'dare') {
             setState(() {
               dare = dares.randomDare(type);  
             });
-            // Navigator.pop(context);
           }
           if(type == 'success') {
             setStateModal(() {
               success = dares.randomDare(type);
             });
             
-            // Navigator.pop(context);
           }
           if(type == 'punishment') {
             setStateModal(() {
               punishment = dares.randomDare(type);
             });
-            // Navigator.pop(context);
           }
-        // if(type != 'dare') {
-        //   displayModal(context, dares, type);
-        // }
       },
     );
   }
@@ -315,8 +288,6 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
           SizedBox(height: 5,),
           rulesText('Feel free to ad-lib your own rule/dare at any time.'),
           SizedBox(height: 5,),
-          // rulesText('Rules are for losers'),
-          // SizedBox(height: 5,),
         ],
       ),
     );
