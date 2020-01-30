@@ -101,7 +101,6 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
             alignment: Alignment(0.0, -0.3),
             child: Container( 
               width: deviceSize.width * .65,
-              // height: deviceSize.height * .4,
               child: Text(
                   dare,
                   style: TextStyle(  
