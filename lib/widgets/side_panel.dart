@@ -19,8 +19,8 @@ class SidePanel extends StatelessWidget {
           ),
           if(current != 'main')
             ListTile(
-              leading: Icon(Icons.shop),
-              title: Text('Main'),
+              leading: Icon(Icons.home),
+              title: Text('Home'),
               onTap: () {
                 Navigator.of(context).pushReplacementNamed(MainScreen.routeName);
               },
@@ -29,17 +29,17 @@ class SidePanel extends StatelessWidget {
             Divider(),
           if(current != 'custom')
             ListTile(
-              leading: Icon(Icons.shop),
+              leading: Icon(Icons.gamepad),
               title: Text('Custom Game'),
               onTap: () {
-                Navigator.of(context).pushNamed(QuickGameScreen.routeName);
+                Navigator.of(context).pushNamed(QuickGameScreen.routeNameCustom);
               },
             ),
           if(current != 'custom')
             Divider(),
           if(current != 'quick')
             ListTile(
-              leading: Icon(Icons.shop),
+              leading: Icon(Icons.category),
               title: Text('Quick Game'),
               onTap: () {
                 Navigator.of(context).pushNamed(QuickGameScreen.routeName);
@@ -49,7 +49,7 @@ class SidePanel extends StatelessWidget {
             Divider(),
           if(current != 'customize')
             ListTile(
-              leading: Icon(Icons.shop),
+              leading: Icon(Icons.edit),
               title: Text('Customize'),
               onTap: () {
                 Navigator.of(context).pushReplacementNamed(CustomizeScreen.routeName);
@@ -57,14 +57,14 @@ class SidePanel extends StatelessWidget {
             ),
           if(current != 'customize')
             Divider(),
-          if(current != 'settings')
-            ListTile(
-              leading: Icon(Icons.shop),
-              title: Text('Settings'),
-              onTap: () {
-                Navigator.of(context).pushReplacementNamed(QuickGameScreen.routeName);
-              },
-          ),
+          // if(current != 'settings')
+          //   ListTile(
+          //     leading: Icon(Icons.shop),
+          //     title: Text('Settings'),
+          //     onTap: () {
+          //       Navigator.of(context).pushReplacementNamed(QuickGameScreen.routeName);
+          //     },
+          // ),
         ],
       ),
     );
