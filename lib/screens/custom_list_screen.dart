@@ -103,7 +103,7 @@ class _CustomListScreenState extends State<CustomListScreen> {
                     )
                   );
                 }
-                dares.saveDare(_addValue.text, widget.type);
+                dares.saveDare(_addValue.text, widget.type, '1');
               },
             ),
             _buildDareList(snapshot.data)

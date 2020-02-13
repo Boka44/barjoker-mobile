@@ -187,16 +187,15 @@ class Dares with ChangeNotifier {
     return element.message;
   }
 
-  void saveDare(String message, String type) {
-    _dares.add(
-      new Dare(  
-        id: '123',
-        message: message,
-        userId: userId,
-        isDefault: false,
-        type: type
-      )
-    );
+  void saveDare(String message, String type, String userId) {
+    
+    final Map<String, dynamic> doc = { 
+        'message': message,
+        'userId': userId,
+        'isDefault': false,
+        'type': type
+    };
+    _api.addDocument(doc);
     notifyListeners();
   }
 
