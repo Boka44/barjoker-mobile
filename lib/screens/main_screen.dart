@@ -22,7 +22,7 @@ class _MainScreenState extends State<MainScreen> {
   
 
   _handleClick (dares) {
-    dares.saveDare(dareOfTheDay, dareType);
+    dares.saveDare(dareOfTheDay, dareType, '1');
     quickButtonText = 'Added!';
     print('Added');
     setState(() {

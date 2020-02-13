@@ -92,12 +92,12 @@ class Api{
     .where('isDefault', isEqualTo: isDefault)
     .getDocuments() ;
   }
-  Stream<QuerySnapshot> streamDataCollection() {
-    return ref.snapshots() ;
-  }
-  Future<DocumentSnapshot> getDocumentById(String id) {
-    return ref.document(id).get();
-  }
+  // Stream<QuerySnapshot> streamDataCollection() {
+  //   return ref.snapshots() ;
+  // }
+  // Future<DocumentSnapshot> getDocumentById(String id) {
+  //   return ref.document(id).get();
+  // }
   Future<void> removeDocument(String id){
     return ref.document(id).delete();
   }

@@ -200,6 +200,7 @@ class Dares with ChangeNotifier {
   }
 
   void removeDare(String id) {
+    _api.removeDocument(id);
     _dares.removeWhere((dare) => dare.id == id);
     notifyListeners();
   }
