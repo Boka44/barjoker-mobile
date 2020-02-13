@@ -1,9 +1,3 @@
-List<String> types = [
-  'Dare',
-  'Success',
-  'Punishment'
-];
-
 class Dare {
  String message;
  final String id;
@@ -18,4 +12,20 @@ class Dare {
    this.type,
    this.userId
  });
+ Dare.fromMap(Map snapshot, String id) :
+        id = id ?? '',
+        message = snapshot['message'] ?? '',
+        isDefault = snapshot['isDefault'] ?? false,
+        type = snapshot['type'] ?? '',
+        userId = snapshot['userId'] ?? '';
+
+  toJson() {
+    return {
+      "id": id,
+      "message": message,
+      "isDefault": isDefault,
+      "type" : type,
+      "userId" : userId
+    };
+  }
 }

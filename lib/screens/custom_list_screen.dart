@@ -31,22 +31,28 @@ class _CustomListScreenState extends State<CustomListScreen> {
     final deviceSize = MediaQuery.of(context).size;
     String capType = '${widget.type[0].toUpperCase()}${widget.type.substring(1)}';
 
-    List<Dare> _listItems; 
-    if(widget.type == 'dare') {
-      _listItems = dares.dares;
-    }
-    if(widget.type == 'success') {
-      _listItems = dares.successes;
-    }
-    if(widget.type == 'punishment') {
-      _listItems = dares.punishments;
-    }
+    // List<Dare> _listItems; 
+    // if(widget.type == 'dare') {
+    //   _listItems = dares.dares;
+    // }
+    // if(widget.type == 'success') {
+    //   _listItems = dares.successes;
+    // }
+    // if(widget.type == 'punishment') {
+    //   _listItems = dares.punishments;
+    // }
     return Scaffold(
       appBar: AppBar(  
 
       ),
       // drawer: SidePanel('customize'),
-      body: Container( 
+      body: FutureBuilder<List<Dare>>(
+      future: dares.fetchDares('1', widget.type),
+      builder: (BuildContext context, AsyncSnapshot<List<Dare>> snapshot) {
+        if(!snapshot.hasData) {
+          return Text('Loading...');
+        } 
+        return Container( 
         height: deviceSize.height,
         child: Column(  
           children: <Widget>[
@@ -97,13 +103,14 @@ class _CustomListScreenState extends State<CustomListScreen> {
                     )
                   );
                 }
-                dares.saveDare(_addValue.text, widget.type);
+                dares.saveDare(_addValue.text, widget.type, '1');
               },
             ),
-            _buildDareList(_listItems)
+            _buildDareList(snapshot.data)
           ],
         ),
-      ),
+      );
+      })
     );
   }
 }
