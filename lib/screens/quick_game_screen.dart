@@ -1,3 +1,4 @@
+import 'package:barjoker/providers/dare.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -50,7 +51,14 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
           )
         ],
       ),
-      body: Container( 
+      body: FutureBuilder<List<Dare>>(
+      future: dares.fetchDaresForGame('1', defaultGame),
+      builder: (BuildContext context, AsyncSnapshot<List<Dare>> snapshot) {
+        print(snapshot.data);
+        if(!snapshot.hasData) {
+          return Text('Loading...');
+        }
+        return Container( 
         width: deviceSize.width,
         child: Column(  
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -82,7 +90,8 @@ class _QuickGameScreenState extends State<QuickGameScreen> {
               rules(deviceSize)
           ],
         ),
-      ),
+      );
+      }),
     );
   }
 

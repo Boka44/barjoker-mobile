@@ -1,10 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'dart:math';
 
+import '../services/database.dart';
 import './dare.dart';
 
 class Dares with ChangeNotifier {
   final String userId = '1';
+  Api _api = Api('dares');
 
   // Dares(this.userId);
 
@@ -102,19 +105,66 @@ class Dares with ChangeNotifier {
     )
   ];
 
-  // Store userid in all requests?
-
-  List<Dare> get dares {
-    return _dares.where((dare) => dare.type == 'dare' && userId == dare.userId).toList();
+    
+  Future<List<Dare>> fetchDares(String userId, String type) async {
+    var result = await _api.getDataCollectionDaresByUserByType(userId, type);
+    _dares = result.documents
+        .map((doc) => Dare.fromMap(doc.data, doc.documentID))
+        .toList();
+    return _dares;
   }
 
-  List<Dare> get successes {
-    return _dares.where((dare) => dare.type == 'success' && userId == dare.userId).toList();
+  Future<List<Dare>> fetchDaresForGame(String userId, bool isDefaultGame) async {
+    if(isDefaultGame) {
+      var result = await _api.getDataCollectionDaresByDefault(true);
+      _dares = result.documents
+        .map((doc) => Dare.fromMap(doc.data, doc.documentID))
+        .toList();
+    return _dares;  
+    } else {
+      var result1 = await _api.getDataCollectionDaresByDefault(true);
+      var result2 = await _api.getDataCollectionDaresByUser(userId);
+      var merged = [...result1.documents, ...result2.documents];
+      _dares = merged
+        .map((doc) => Dare.fromMap(doc.data, doc.documentID))
+        .toList();
+        return _dares;
+    }
   }
 
-  List<Dare> get punishments {
-    return _dares.where((dare) => dare.type == 'punishment' && userId == dare.userId).toList();
-  }
+  // List<Dare> get dares {
+  //   //  return _dares.where((dare) => dare.type == 'dare' && userId == dare.userId).toList();
+  // }
+
+  // List<Dare> get successes {
+    
+  //   return _dares.where((dare) => dare.type == 'success' && userId == dare.userId).toList();
+  // }
+
+  // List<Dare> get punishments {
+  //   return _dares.where((dare) => dare.type == 'punishment' && userId == dare.userId).toList();
+  // }
+
+  // String randomDare(String type, bool isDefault, bool getDefault) {
+  //   print(type + ' ' + getDefault.toString());
+  //   List<Dare> _parsedList;
+  //   if(isDefault) {
+  //     _parsedList = _dares.where((dare) => dare.type == type && dare.isDefault).toList();
+  //     print(_parsedList.length);
+  //   } else if (getDefault) {
+  //     _parsedList = _dares.where((dare) => (dare.type == type && userId == dare.userId) || (dare.type == type && dare.isDefault)).toList();
+  //     print(_parsedList.length);
+  //   } else {
+  //     _parsedList = _dares.where((dare) => dare.type == type && userId == dare.userId && !dare.isDefault).toList();
+  //     print(_parsedList.length);
+  //   }
+    
+  //   // print(_parsedList);
+  //   final _random = new Random();
+  //   var element = _parsedList[_random.nextInt(_parsedList.length)];
+  //   // print(element);
+  //   return element.message;
+  // }
 
   String randomDare(String type, bool isDefault, bool getDefault) {
     print(type + ' ' + getDefault.toString());
