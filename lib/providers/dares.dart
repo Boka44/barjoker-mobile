@@ -208,6 +208,13 @@ class Dares with ChangeNotifier {
   void editDare(String id, String message) {
     int ind = _dares.lastIndexWhere((dare) => id == dare.id);
     _dares[ind].message = message;
+    final Map<String, dynamic> doc = {
+      'message': _dares[ind].message,
+        'userId': _dares[ind].userId,
+        'isDefault': false,
+        'type': _dares[ind].type
+    };
+    _api.updateDocument(doc, id);
     notifyListeners();
   }
 }
